@@ -119,6 +119,60 @@
           }
         }
       }
+    },
+    "coffee-api": {
+      "root": "apps/coffee-api",
+      "sourceRoot": "apps/coffee-api/src",
+      "projectType": "application",
+      "prefix": "coffee-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/coffee-api",
+            "main": "apps/coffee-api/src/main.ts",
+            "tsConfig": "apps/coffee-api/tsconfig.app.json",
+            "assets": ["apps/coffee-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/coffee-api/src/environments/environment.ts",
+                  "with": "apps/coffee-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "coffee-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/coffee-api/tsconfig.app.json",
+              "apps/coffee-api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/coffee-api/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/coffee-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

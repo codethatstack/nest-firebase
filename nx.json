@@ -29,6 +29,9 @@
     "coffee-e2e": {
       "tags": [],
       "implicitDependencies": ["coffee"]
+    },
+    "coffee-api": {
+      "tags": []
     }
   }
 }
