@@ -1,0 +1,15 @@
+{
+  "main":"main.js",
+  "engines": {
+    "node":"12"
+  },
+  "dependencies": {
+    "firebase-functions": "^3.11.0",
+    "firebase-admin": "^9.2.0",
+    "@nestjs/core": "^7.0.0",
+    "@nestjs/common":"^7.0.0",
+    "@nestjs/platform-express":"^7.4.4",
+    "reflect-metadata":"^0.1.13",
+    "rxjs":"^6.6.3"
+  }
+}

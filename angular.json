@@ -127,13 +127,16 @@
       "prefix": "coffee-api",
       "schematics": {},
       "architect": {
-        "build": {
+        "build-node": {
           "builder": "@nrwl/node:build",
           "options": {
             "outputPath": "dist/apps/coffee-api",
             "main": "apps/coffee-api/src/main.ts",
             "tsConfig": "apps/coffee-api/tsconfig.app.json",
-            "assets": ["apps/coffee-api/src/assets"]
+            "assets": [
+              "apps/coffee-api/src/assets",
+              "apps/coffee-api/src/package.json"
+            ]
           },
           "configurations": {
             "production": {
@@ -147,6 +150,12 @@
                 }
               ]
             }
+          }
+        },
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "nx run coffee-api:build-node"
           }
         },
         "serve": {
@@ -170,6 +179,26 @@
           "options": {
             "jestConfig": "apps/coffee-api/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "deploy-functions": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "firebase deploy --only functions"
+          }
+        },
+        "deploy": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "nx run coffee-api:build"
+              },
+              {
+                "command": "nx run coffee-api:deploy-functions"
+              }
+            ],
+            "parallel": false
           }
         }
       }
